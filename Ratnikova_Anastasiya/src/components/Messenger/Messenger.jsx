@@ -7,7 +7,7 @@ import './Messenger.scss';
 import {ChatList} from "components/ChatList";
 
 export class Messenger extends Component {
-    componentDidUpdate() {
+    /*componentDidUpdate() {
         if (window.location.pathname !== '/') {
             const {messages} = this.props;
             const messagesList = document.getElementById('message_list');
@@ -27,7 +27,7 @@ export class Messenger extends Component {
         if (messages[messages.length - 1].author !== 'Bot') {
             sendMessage({text: `${author}, Это автоответ бота!`, author: 'Bot'});
         }
-    }
+    }*/
 
     render() {
         const {chats, messages, sendMessage} = this.props;
