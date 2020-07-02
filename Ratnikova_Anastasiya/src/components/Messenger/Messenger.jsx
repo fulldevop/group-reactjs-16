@@ -30,12 +30,12 @@ export class Messenger extends Component {
     }*/
 
     render() {
-        const {chats, messages, sendMessage} = this.props;
+        const {chats, messages, sendMessage, addChat} = this.props;
 
         return (
             <div className="messenger">
                 <div className="messenger__chats-wrap">
-                    <ChatList chats={chats} />
+                    <ChatList addChat={addChat} chats={chats} />
                 </div>
                 <div className="messenger__messages-wrap">
                     {messages ? <MessageList items={messages} /> : <SelectChat />}

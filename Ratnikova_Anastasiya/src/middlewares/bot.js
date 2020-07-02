@@ -14,7 +14,7 @@ export function botMiddleware(store) {
                         }
                     }, 3000);
                 }
-
+                // TODO fix double messages sending
                 messagesList.scrollTop = messagesList.scrollHeight;
                 /*const {chatId, author} = action.payload;
 

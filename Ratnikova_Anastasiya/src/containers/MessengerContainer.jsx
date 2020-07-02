@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {push} from 'connected-react-router';
 
 import {Messenger} from 'components/Messenger';
-import {chatsLoad, chatsSend} from 'actions/chats';
+import {chatsLoad, chatsSend, chatsAdd} from 'actions/chats';
 
 class MessengerContainer extends Component {
     componentDidMount(){
@@ -19,11 +20,19 @@ class MessengerContainer extends Component {
         });
     };
 
-    render(){
+    handleChatsAdd = () => {
+        const {chatsAddAction, newChatId, redirect} = this.props;
+        const chatName = prompt('Введите имя чата');
+
+        chatsAddAction(newChatId, chatName);
+        redirect(newChatId);
+    };
+
+    render() {
         const {chats, messages} = this.props;
 
         return (
-            <Messenger chats={chats} messages={messages} sendMessage={this.handleMessageSend} />
+            <Messenger addChat={this.handleChatsAdd} chats={chats} messages={messages} sendMessage={this.handleMessageSend} />
         );
     }
 }
@@ -50,10 +59,13 @@ function mapStateToProps(state, ownProps){
         }
     }
 
+    const lastId = Object.keys(chats).length ? Object.keys(chats).length : 1;
+
     return {
         chats: chatsArrayForShow,
         messages,
         chatId: match ? match.params.id: null,
+        newChatId: lastId + 1
     }
 }
 
@@ -65,6 +77,8 @@ function mapDispatchToProps(dispatch){
     return {
         chatsLoadAction: () => dispatch(chatsLoad()),
         chatsSendAction: (message) => dispatch(chatsSend(message)),
+        chatsAddAction: (newChatId, chatName) => dispatch(chatsAdd(newChatId, chatName)),
+        redirect: (id) => dispatch(push(`/chats/${id}`))
     };
 }
 

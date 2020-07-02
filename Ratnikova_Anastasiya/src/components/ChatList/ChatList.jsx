@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 
-import {List, ListItem, ListItemText} from '@material-ui/core';
+import {List, ListItem, ListItemText, Button} from '@material-ui/core';
 import {Link} from 'react-router-dom';
 
 
@@ -8,7 +8,7 @@ import './ChatList.scss';
 
 export class ChatList extends Component {
     render() {
-        const {chats, messages} = this.props;
+        const {chats, messages, addChat} = this.props;
 
         let chatsComponents = [];
         for(let chatKey in chats){
@@ -28,7 +28,11 @@ export class ChatList extends Component {
                         <Link to={chat.link}  className="chat-list__link">
                             <ListItemText primary={chat.name} />
                         </Link>
-                    </ListItem>)}
+                    </ListItem>
+                )}
+                <Button onClick={addChat} variant="contained" color="secondary">
+                    <ListItemText primary="Add chat" />
+                </Button>
             </List>
         );
     }

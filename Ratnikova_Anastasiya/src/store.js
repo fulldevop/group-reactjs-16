@@ -1,15 +1,20 @@
 import {createStore, applyMiddleware} from 'redux';
 import {createLogger} from 'redux-logger';
 import {composeWithDevTools} from 'redux-devtools-extension';
+import {routerMiddleware} from 'connected-react-router';
+import {createBrowserHistory} from 'history';
 
-import {rootReducer} from 'reducers';
+import {initReducer} from 'reducers';
 import {loggerMiddleware} from 'middlewares/logger';
 import {botMiddleware} from 'middlewares/bot';
 
-export const store = createStore(rootReducer, composeWithDevTools(
+export const history = createBrowserHistory();
+
+export const store = createStore(initReducer(history), composeWithDevTools(
     applyMiddleware(
         createLogger(),
         loggerMiddleware,
-        botMiddleware
+        botMiddleware,
+        routerMiddleware(history)
     )
 ));
