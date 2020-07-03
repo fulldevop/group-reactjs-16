@@ -29,10 +29,10 @@ class MessengerContainer extends Component {
     };
 
     render() {
-        const {chats, messages} = this.props;
+        const {chats, messages, chatId} = this.props;
 
         return (
-            <Messenger addChat={this.handleChatsAdd} chats={chats} messages={messages} sendMessage={this.handleMessageSend} />
+            <Messenger chatId={chatId} addChat={this.handleChatsAdd} chats={chats} messages={messages} sendMessage={this.handleMessageSend} />
         );
     }
 }
@@ -53,19 +53,28 @@ function mapStateToProps(state, ownProps){
     }
 
     let chatsArrayForShow = [];
+    let blinkingChats = [];
+
     for(let key in chats){
         if(chats.hasOwnProperty(key)){
             chatsArrayForShow.push({name: chats[key].name, link: `/chats/${key}`});
         }
+
+        if (chats[key]['blinking']) {
+            blinkingChats.push(key);
+        }
     }
+    console.log(blinkingChats);
 
     const lastId = Object.keys(chats).length ? Object.keys(chats).length : 1;
+    const chatId = match ? match.params.id: null;
 
     return {
         chats: chatsArrayForShow,
         messages,
-        chatId: match ? match.params.id: null,
-        newChatId: lastId + 1
+        chatId: chatId,
+        newChatId: lastId + 1,
+        blinkingChats: blinkingChats
     }
 }
 
@@ -73,11 +82,12 @@ function mapStateToProps(state, ownProps){
  * Для работы с actions
  * @param {*} dispatch 
  */
-function mapDispatchToProps(dispatch){
+function mapDispatchToProps(dispatch) {
     return {
         chatsLoadAction: () => dispatch(chatsLoad()),
         chatsSendAction: (message) => dispatch(chatsSend(message)),
         chatsAddAction: (newChatId, chatName) => dispatch(chatsAdd(newChatId, chatName)),
+        // chatsFireAction: (blinkingChat) => dispatch(chatsFire(blinkingChat)),
         redirect: (id) => dispatch(push(`/chats/${id}`))
     };
 }

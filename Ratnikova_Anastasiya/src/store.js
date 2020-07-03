@@ -7,14 +7,16 @@ import {createBrowserHistory} from 'history';
 import {initReducer} from 'reducers';
 import {loggerMiddleware} from 'middlewares/logger';
 import {botMiddleware} from 'middlewares/bot';
+import {fireChatMiddleware} from 'middlewares/fireChat';
 
 export const history = createBrowserHistory();
 
 export const store = createStore(initReducer(history), composeWithDevTools(
     applyMiddleware(
         createLogger(),
-        loggerMiddleware,
+        // loggerMiddleware,
         botMiddleware,
+        fireChatMiddleware,
         routerMiddleware(history)
     )
 ));

@@ -9,6 +9,10 @@
             background: #cfffef;
             cursor: pointer;
         }
+
+        &--blinking {
+            background: #ffd3d3;
+        }
     }
 
     &__link {

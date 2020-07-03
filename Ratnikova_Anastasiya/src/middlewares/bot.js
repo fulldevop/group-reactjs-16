@@ -16,11 +16,6 @@ export function botMiddleware(store) {
                 }
                 // TODO fix double messages sending
                 messagesList.scrollTop = messagesList.scrollHeight;
-                /*const {chatId, author} = action.payload;
-
-                if (author !== 'Bot') {
-                    store.dispatch(chatsSend({chatId, text: `${author}, Это автоответ бота!`, author: 'Bot'}));
-                }*/
             }
 
             return next(action);

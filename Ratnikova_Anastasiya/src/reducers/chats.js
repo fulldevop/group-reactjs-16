@@ -1,4 +1,4 @@
-import {CHATS_LOAD, CHATS_SEND, CHATS_ADD} from 'actions/chats';
+import {CHATS_LOAD, CHATS_SEND, CHATS_ADD, CHATS_FIRE} from 'actions/chats';
 import update from 'react-addons-update';
 
 const dataBackend = {
@@ -10,6 +10,7 @@ const dataBackend = {
 				author: 'User'
 			},
 		],
+		blinking: false
 	},
 	'2': {
 		name: 'Chat 2',
@@ -19,6 +20,7 @@ const dataBackend = {
 				author: 'User'
 			},
 		],
+		blinking: false
 	},
 	'3': {
 		name: 'Chat 3',
@@ -28,6 +30,7 @@ const dataBackend = {
 				author: 'User'
 			},
 		],
+		blinking: false
 	},
 };
 
@@ -52,7 +55,7 @@ export const chatsReducer = (state = initialState, action) => {
 				}
 			});
 		case CHATS_ADD:
-			const {chatId, name} = action.payload;
+			const {name, chatId} = action.payload;
 			return update(state, {
 				entries: {
 					$merge: {
@@ -60,6 +63,14 @@ export const chatsReducer = (state = initialState, action) => {
 							name: name,
 							messages: []
 						}
+					}
+				}
+			});
+		case CHATS_FIRE:
+			return update(state, {
+				entries: {
+					[action.payload.blinkingChatId]: {
+						blinking: {$set: true}
 					}
 				}
 			});
