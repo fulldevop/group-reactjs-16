@@ -45,11 +45,11 @@ export class ChatList extends Component {
                 }
             }
         }
-
+        //TODO допилить мигалку
         return (
             <List className="chat-list">
                 {chats.map((chat, index) =>
-                    <ListItem key={index} className={`chat-list__item${isBlinking(chat.link)}`}>
+                    <ListItem key={index} className={`chat-list__item`}>
                         <Link to={chat.link} className="chat-list__link">
                             <ListItemText primary={chat.name} />
                         </Link>
