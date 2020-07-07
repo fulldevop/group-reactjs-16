@@ -8,6 +8,8 @@ import {createBrowserHistory} from 'history';
 import {persistStore, persistReducer} from 'redux-persist';
 import storage from 'redux-persist/lib/storage'; //localStorage
 
+import {} from 'redux-';
+
 import {initReducer} from 'reducers';
 import {loggerMiddleware} from 'middlewares/logger';
 import {botMiddleware} from 'middlewares/bot';
@@ -28,7 +30,6 @@ export const history = createBrowserHistory();
 const persistConfig = {
     key: 'root',
     storage,
-    blacklist: ['chats'],
 };
 
 export function initStore(){

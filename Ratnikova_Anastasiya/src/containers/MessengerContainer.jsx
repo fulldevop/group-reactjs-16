@@ -8,7 +8,12 @@ import {chatsLoad, chatsSend, chatsAdd} from 'actions/chats';
 class MessengerContainer extends Component {
     componentDidMount(){
         const {chatsLoadAction} = this.props;
-        chatsLoadAction();
+
+        console.log(this.props);
+
+        if(!this.props.chats.length){
+            chatsLoadAction(); //Получение чатов
+        }
     };
 
     handleMessageSend = (message) => {
@@ -64,7 +69,6 @@ function mapStateToProps(state, ownProps){
             blinkingChats.push(key);
         }
     }
-    console.log(blinkingChats);
 
     const lastId = Object.keys(chats).length ? Object.keys(chats).length : 1;
     const chatId = match ? match.params.id: null;
